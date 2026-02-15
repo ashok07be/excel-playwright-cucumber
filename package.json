@@ -1,0 +1,24 @@
+{
+  "name": "excel-playwright-cucumber",
+  "version": "1.0.0",
+  "description": "A test automation project using Playwright and Cucumber with dynamic URL and locator changes based on Excel sheets.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "test:watch": "cucumber-js --watch",
+    "report": "allure generate reports/allure-results --clean"
+  },
+  "dependencies": {
+    "playwright": "^1.56.1",
+    "@cucumber/messages": "^22.0.0",
+    "exceljs": "^4.3.0"
+  },
+  "devDependencies": {
+    "jest": "^27.0.0",
+    "@cucumber/cucumber": "^9.6.0",
+    "@playwright/test": "^1.56.0",
+    "allure-commandline": "^2.13.8"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

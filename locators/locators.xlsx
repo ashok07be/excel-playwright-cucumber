@@ -1,0 +1,9 @@
+| ScreenId | ElementName | LocatorType | LocatorValue |
+|----------|-------------|-------------|---------------|
+| login    | username    | css         | input#username |
+| login    | password    | css         | input#password |
+| login    | submit      | css         | button#submit  |
+| dashboard| search      | css         | input#search   |
+| dashboard| logout      | css         | button#logout  |
+| settings | theme       | css         | select#theme   |
+| settings | save        | css         | button#save    |
