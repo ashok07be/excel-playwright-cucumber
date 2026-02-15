@@ -1,18 +1,19 @@
 const { Before, After } = require('@cucumber/cucumber');
 const { chromium } = require('playwright');
 
-let browser;
-let context;
-let page;
-
-Before(async () => {
-    browser = await chromium.launch({ headless: false });
-    context = await browser.newContext();
-    page = await context.newPage();
+Before(async function () {
+    const browser = await chromium.launch({ headless: false });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    
+    // Attach to world object so steps can access them
+    this.browser = browser;
+    this.context = context;
+    this.page = page;
 });
 
-After(async () => {
-    await page.close();
-    await context.close();
-    await browser.close();
+After(async function () {
+    if (this.page) await this.page.close();
+    if (this.context) await this.context.close();
+    if (this.browser) await this.browser.close();
 });

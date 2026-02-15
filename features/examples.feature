@@ -1,25 +1,15 @@
-Feature: Example Scenarios for Dynamic Testing
+Feature: SauceDemo Login Tests
 
-  Scenario: Navigate to a URL and perform actions
-    Given I navigate to "https://example.com"
-    When I fill in the "username" with "testuser"
-    And I fill in the "password" with "password123"
+  Scenario: Login with valid credentials
+    Given I navigate to "https://www.saucedemo.com/"
+    When I fill in the "username" with "standard_user"
+    And I fill in the "password" with "secret_sauce"
     And I click on the "loginButton"
-    Then I should see the "welcomeMessage"
+    Then I should see the "productTitle"
 
-  Scenario: Select an option from a dropdown
-    Given I navigate to "https://example.com"
-    When I select "option1" from the "dropdownMenu"
-    Then I should see the "selectionConfirmation" message
-
-  Scenario: Verify element visibility
-    Given I navigate to "https://example.com"
-    When I click on the "toggleButton"
-    Then the "hiddenElement" should be visible
-
-  Scenario: Fill a form and submit
-    Given I navigate to "https://example.com/form"
-    When I fill in the "firstName" with "John"
-    And I fill in the "lastName" with "Doe"
-    And I click on the "submitButton"
-    Then I should see the "submissionSuccess" message
+  Scenario: Login with invalid credentials
+    Given I navigate to "https://www.saucedemo.com/"
+    When I fill in the "username" with "invalid_user"
+    And I fill in the "password" with "invalid_pass"
+    And I click on the "loginButton"
+    Then I should see the "errorMessage" message

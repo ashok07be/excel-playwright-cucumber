@@ -1,5 +1,5 @@
 class FillAction {
-    async execute(selector, value) {
+    async execute(page, selector, value) {
         const element = await page.$(selector);
         if (element) {
             await element.fill(value);

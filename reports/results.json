@@ -1,0 +1,197 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "saucedemo-login-tests;login-with-valid-credentials",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "Login with valid credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1572612799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "I navigate to \"https://www.saucedemo.com/\"",
+            "match": {
+              "location": "features\\step_definitions\\steps.js:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 588669200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 5,
+            "name": "I fill in the \"username\" with \"standard_user\"",
+            "match": {
+              "location": "features\\step_definitions\\steps.js:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 424220399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 6,
+            "name": "I fill in the \"password\" with \"secret_sauce\"",
+            "match": {
+              "location": "features\\step_definitions\\steps.js:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 56015599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "I click on the \"loginButton\"",
+            "match": {
+              "location": "features\\step_definitions\\steps.js:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 294824300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "I should see the \"productTitle\"",
+            "match": {
+              "location": "features\\step_definitions\\steps.js:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 32429500
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1530631800
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "saucedemo-login-tests;login-with-invalid-credentials",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "Login with invalid credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1601539499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "I navigate to \"https://www.saucedemo.com/\"",
+            "match": {
+              "location": "features\\step_definitions\\steps.js:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 640332499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I fill in the \"username\" with \"invalid_user\"",
+            "match": {
+              "location": "features\\step_definitions\\steps.js:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 149337900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "I fill in the \"password\" with \"invalid_pass\"",
+            "match": {
+              "location": "features\\step_definitions\\steps.js:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 76804200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I click on the \"loginButton\"",
+            "match": {
+              "location": "features\\step_definitions\\steps.js:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 88028000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "I should see the \"errorMessage\" message",
+            "match": {
+              "location": "features\\step_definitions\\steps.js:53"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 32062400
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1083250500
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "saucedemo-login-tests",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "SauceDemo Login Tests",
+    "tags": [],
+    "uri": "features\\examples.feature"
+  }
+]

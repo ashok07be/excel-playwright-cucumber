@@ -4,4 +4,4 @@ class NavigateAction {
     }
 }
 
-module.exports = new NavigateAction();
+module.exports = NavigateAction;

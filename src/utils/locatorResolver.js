@@ -1,11 +1,16 @@
 class LocatorResolver {
     constructor(excelService) {
         this.excelService = excelService;
+        this.locators = null; // Cache locators
     }
 
     async resolveLocator(screenName, elementName) {
-        const locators = await this.excelService.readLocators();
-        const screenLocators = locators[screenName];
+        // Load locators on first use
+        if (!this.locators) {
+            this.locators = await this.excelService.readLocators();
+        }
+
+        const screenLocators = this.locators[screenName];
 
         if (!screenLocators) {
             throw new Error(`No locators found for screen: ${screenName}`);

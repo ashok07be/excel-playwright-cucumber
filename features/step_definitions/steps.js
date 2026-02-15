@@ -7,32 +7,62 @@ const ExcelService = require('../../src/services/excelService');
 const LocatorResolver = require('../../src/utils/locatorResolver');
 
 const excelService = new ExcelService();
-const locatorResolver = new LocatorResolver();
+const locatorResolver = new LocatorResolver(excelService);
 
 Given('I navigate to {string}', async function (url) {
     const navigateAction = new NavigateAction();
-    await navigateAction.execute(url);
+    console.log(`📍 Navigating to: ${url}`);
+    await navigateAction.execute(this.page, url);
 });
 
-When('I fill {string} with {string}', async function (elementName, value) {
-    const selector = await locatorResolver.resolve(elementName);
+When('I fill in the {string} with {string}', async function (elementName, value) {
+    const selector = await locatorResolver.resolveLocator('LoginPage', elementName);
     const fillAction = new FillAction();
-    await fillAction.execute(selector, value);
+    console.log(`✏️  Filling ${elementName} with: ${value}`);
+    await fillAction.execute(this.page, selector, value);
 });
 
-When('I click on {string}', async function (elementName) {
-    const selector = await locatorResolver.resolve(elementName);
+When('I click on the {string}', async function (elementName) {
+    const selector = await locatorResolver.resolveLocator('LoginPage', elementName);
     const clickAction = new ClickAction();
-    await clickAction.execute(selector);
+    console.log(`🖱️  Clicking on: ${elementName}`);
+    await clickAction.execute(this.page, selector);
 });
 
-When('I select {string} from {string}', async function (value, elementName) {
-    const selector = await locatorResolver.resolve(elementName);
+When('I select {string} from the {string}', async function (value, elementName) {
+    const selector = await locatorResolver.resolveLocator('LoginPage', elementName);
     const selectAction = new SelectAction();
-    await selectAction.execute(selector, value);
+    console.log(`📋 Selecting ${value} from: ${elementName}`);
+    await selectAction.execute(this.page, selector, value);
 });
 
-Then('I should see {string}', async function (elementName) {
-    const selector = await locatorResolver.resolve(elementName);
-    // Add assertion logic here to verify the element is visible
+Then('I should see the {string}', async function (elementName) {
+    const selector = await locatorResolver.resolveLocator('ProductsPage', elementName);
+    console.log(`👁️  Verifying element is visible: ${elementName}`);
+    const element = await this.page.$(selector);
+    if (!element) {
+        throw new Error(`Element ${elementName} is not visible`);
+    }
+    const isVisible = await element.isVisible();
+    if (!isVisible) {
+        throw new Error(`Element ${elementName} is not visible`);
+    }
+    console.log(`✅ Element ${elementName} is visible`);
+});
+
+Then('I should see the {string} message', async function (elementName) {
+    // Check which page we're on by trying to find the element in LoginPage first
+    let selector;
+    try {
+        selector = await locatorResolver.resolveLocator('LoginPage', elementName);
+    } catch (e) {
+        selector = await locatorResolver.resolveLocator('ProductsPage', elementName);
+    }
+    
+    console.log(`👁️  Verifying message: ${elementName}`);
+    const element = await this.page.$(selector);
+    if (!element) {
+        throw new Error(`Message ${elementName} is not visible`);
+    }
+    console.log(`✅ Message ${elementName} is visible`);
 });

@@ -1,7 +1,7 @@
 const { setWorldConstructor, setDefaultTimeout } = require('@cucumber/cucumber');
 const { chromium } = require('playwright');
-const ExcelService = require('../services/excelService');
-const Logger = require('./logger');
+const ExcelService = require('../../src/services/excelService');
+const Logger = require('../../src/support/logger');
 
 class CustomWorld {
     constructor() {
