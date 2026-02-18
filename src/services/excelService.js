@@ -38,6 +38,10 @@ class ExcelService {
         await workbook.xlsx.writeFile(filePath);
     }
 
+    /**
+     * Read locators from Excel with support for iframe locators
+     * Returns object with locator info including iframe selector if applicable
+     */
     async readLocators() {
         const locatorsPath = path.join(process.cwd(), 'locators', 'locators.xlsx');
         const data = await this.readExcel(locatorsPath);
@@ -49,14 +53,47 @@ class ExcelService {
             const screen = row[1];
             const elementName = row[2];
             const locator = row[3];
+            const locatorType = row[4];
+            const iframeLocator = row[5]; // New iframe column
 
             if (!locators[screen]) {
                 locators[screen] = {};
             }
-            locators[screen][elementName] = locator;
+
+            // If iframe locator is specified, store both iframe and element locator
+            if (iframeLocator) {
+                locators[screen][elementName] = {
+                    locator: locator,
+                    type: locatorType,
+                    iframeLocator: iframeLocator,
+                    isInIframe: true
+                };
+            } else {
+                // For backward compatibility, store simple locator string if no iframe
+                locators[screen][elementName] = locator;
+            }
         }
 
         return locators;
+    }
+
+    /**
+     * Get locator with iframe support
+     * @param {Object} locatorData - Locator data from readLocators
+     * @returns {Object} Object with locator and iframe info
+     */
+    parseLocator(locatorData) {
+        if (typeof locatorData === 'string') {
+            // Backward compatibility: simple locator string
+            return {
+                locator: locatorData,
+                iframeLocator: null,
+                isInIframe: false
+            };
+        }
+
+        // New format with iframe support
+        return locatorData;
     }
 
     async readTestData() {

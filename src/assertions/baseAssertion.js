@@ -1,28 +1,38 @@
-class BaseAction {
+class BaseAssertion {
     /**
-     * Get an element from the page
+     * Get an element, handling both regular and iframe selectors
      * @param {Page} page - Playwright page object
-     * @param {string} selector - CSS selector
+     * @param {string} selector - CSS selector or iframe path (e.g., "iframe#iframeId >> input.field")
      * @returns {ElementHandle} The element
      */
     async getElement(page, selector) {
-        if (!page) throw new Error('Page is required for actions');
-        const element = await page.$(selector);
-        if (!element) {
-            throw new Error(`Element not found for selector: ${selector}`);
+        if (!page) throw new Error('Page is required for assertions');
+        
+        try {
+            // Handle iframe selectors: "iframe#id >> selector"
+            if (selector.includes('>>')) {
+                return await page.locator(selector).first();
+            }
+            
+            const element = await page.$(selector);
+            if (!element) {
+                throw new Error(`Element not found for selector: ${selector}`);
+            }
+            return element;
+        } catch (error) {
+            throw new Error(`Failed to get element with selector: ${selector}. Error: ${error.message}`);
         }
-        return element;
     }
 
     /**
-     * Get an element from within an iframe
+     * Get elements within an iframe
      * @param {Page} page - Playwright page object
      * @param {string} iframeSelector - Selector for the iframe
      * @param {string} elementSelector - Selector for element within iframe
      * @returns {ElementHandle} The element within iframe
      */
     async getElementInIframe(page, iframeSelector, elementSelector) {
-        if (!page) throw new Error('Page is required for actions');
+        if (!page) throw new Error('Page is required for assertions');
         
         try {
             const frameHandle = await page.$(iframeSelector);
@@ -53,9 +63,14 @@ class BaseAction {
      * @returns {boolean} True if element exists
      */
     async exists(page, selector) {
-        if (!page) throw new Error('Page is required for actions');
-        const element = await page.$(selector);
-        return !!element;
+        if (!page) throw new Error('Page is required for assertions');
+        
+        try {
+            const element = await page.$(selector);
+            return !!element;
+        } catch (error) {
+            return false;
+        }
     }
 
     /**
@@ -81,7 +96,7 @@ class BaseAction {
      * @param {number} timeout - Timeout in milliseconds
      */
     async waitForElement(page, selector, timeout = 5000) {
-        if (!page) throw new Error('Page is required for actions');
+        if (!page) throw new Error('Page is required for assertions');
         
         try {
             await page.waitForSelector(selector, { timeout });
@@ -111,4 +126,4 @@ class BaseAction {
     }
 }
 
-module.exports = BaseAction;
+module.exports = BaseAssertion;
